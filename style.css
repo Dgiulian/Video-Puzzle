@@ -1,0 +1,73 @@
+#video_dest,#video_div,#video_buffer,#video_src{
+	width: 640px;
+	height: 360px;
+	cursor:pointer;
+	margin:0px;
+	/* border:1px solid #000; */
+}
+  #video_buffer{
+	display:none; 	 
+} 
+
+#btn_snd,#btn_pause {
+	width: 16px;
+	height:16px;
+	background-image: url(icons.png);	
+	cursor:pointer;
+	float: left; 
+  	margin-left: 2px; 
+}
+#buttons{
+	width: 640px;
+	height: 16px;	
+}
+#btn_view{
+	/*  display:block; */
+	/* 	width: 50px; */
+	/* 	height:16px; */
+	padding:1px 5px;
+	background-color: #bada55;
+	border: 1px solid #000;
+	border-radius: 3px;
+	margin-left: 5px;
+	font-family: sans-serif;
+	font-weight: bold;
+	font-size:.8em;
+	cursor:pointer;
+	line-height: 90%;	
+}
+.soundOn{
+	background-position-x: 0px;
+}
+.soundOff{
+	background-position-x: -16px;
+}
+.play{
+	background-position-x: -32px;
+}
+.pause{
+	background-position-x: -48px;
+}
+#msg{
+	display:block;
+	width: 640px;
+	height: 16px;
+	color: green;
+	font-family: sans-serif;
+	font-size: 1.2em;
+	text-align:center;	
+}
+.hide{
+	visibility:hidden;
+}
+.noDisplay {
+	display:none;
+}
+#count_info{
+	float:right;
+	font-family: sans-serif;
+	font-size: .9em;
+	font-weight: bold;
+}
+
+

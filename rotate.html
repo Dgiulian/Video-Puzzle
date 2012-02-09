@@ -1,0 +1,70 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style type="text/css">
+		#canvas,#buffer{
+			border:1px solid #000;
+		}
+		#canvas{
+			width:200px;
+			height:200px;
+		}
+		#buffer{
+			width:200px;
+			height:200px;
+		}
+	</style>
+	<script type="text/javascript">
+	var rotado = 1;
+	
+	var rotateArray = [0,Math.PI / 2,Math.PI,-Math.PI / 2];
+
+	
+	document.addEventListener('DOMContentLoaded',function(){
+		img = new Image();
+		c = document.getElementById('canvas');		
+		b = document.getElementById('buffer');		
+		document.addEventListener('mousewheel',mouseWheelHandler,false);
+		img.src = "foto2.jpg";
+		img.onload = function(){
+			c.width  = img.width;
+			c.height = img.height;
+			b.width  = img.width;
+            b.height = img.height;
+
+			draw();
+		};		
+	});
+	function draw(){
+		var ctx = c.getContext("2d");
+		var bff = b.getContext("2d");
+		ctx.drawImage(img,0,0,c.width,c.height);
+		rotar();
+	}
+	function mouseWheelHandler(e){
+		rotado = (rotado==3)?rotado = 0:rotado + 1;
+		rotar();
+	}
+	
+	function rotar(){
+		b.width = b.width;	
+		var x = b.width / 2;
+		var y = b.height / 2;
+		var width = b.width;
+		var height = b.height;		
+		console.log(rotado);
+		var bff = b.getContext("2d");
+			bff.translate(x,y);
+			bff.rotate(rotateArray[rotado] );
+			bff.drawImage(c,-x,-y,b.width,b.height);		
+			bff.translate(-x,-y);
+	}
+	</script>
+</head>
+<body>
+	<canvas id="canvas"></canvas>
+	<canvas id="buffer"></canvas>
+</body>
+</html>

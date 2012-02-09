@@ -1,0 +1,31 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8">
+	<title>Video Puzzle</title>
+	<link rel="stylesheet" href="style.css" />
+</head>
+<body >
+	<canvas id="video_dest"></canvas>
+	<canvas id="video_buffer"></canvas> 
+<div id="video_div" class="noDisplay">
+	 <video id="video_src" width="640" height="360" autoplay loop>
+		<source src="BigBuckBunny_640x360.ogv" type="video/ogg"></source>
+		<source src="BigBuckBunny_640x360.mp4" type="video/mp4"></source>		
+	</video>
+	
+</div> 
+
+<div id="buttons">
+	<div id="btn_pause" class="pause"></div>
+	<div id="btn_snd" class="soundOff"></div>
+	<span id="btn_view">View</span>
+	<span id="count_info">Movimientos:
+	<span id="counter">0</span>	</span>
+</div>
+<span id="msg" class="hide">Felicitaciones has completado el puzzle.</span>
+</body>
+<script type="text/javascript" src="position.js"></script>
+<script type="text/javascript" src="tile.js"></script>
+<script type="text/javascript" src="videopuzzle.js"> </script>
+</html>

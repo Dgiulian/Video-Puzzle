@@ -1,0 +1,156 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8">
+	<title>Video Puzzle</title>
+	<style type="text/css">
+	
+	#video_dest,#video_src,#video_buffer{
+		 width: 640px;
+		height: 360px;
+	}
+	#video_src{
+		display:none;
+	}
+	
+	#video_dest{
+		border: 1px solid #bada55;
+	}
+	</style>
+</head>
+<body onload="init()">
+<div id="video_src">
+	<!-- <video id="video_tag" width="640" height="360" autoplay loop>
+		<source src="BigBuckBunny_640x360.mp4" type="video/mp4"></source>
+		<source src="BigBuckBunny_640x360.ogv" type="video/ogg"></source>
+	</video> -->
+	<canvas id="video_buffer"></canvas>
+</div> 
+	<canvas id="video_dest"></canvas>
+</body>
+<script type="text/javascript">
+function Position(r,c){
+	this.r = r;
+	this.c = c;
+}
+function Tile(w,h,p,highlight,color){
+	this.w = w;
+	this.h = h;
+	this.pos = p;
+	this.ori = p;
+	this.highlight = highlight;
+	this.color = color;
+}
+Tile.prototype.draw = function() {
+	var border = 1;
+	
+	if (this.highlight) {
+		var f = ctx.fillStyle;
+		ctx.capsize = 2;
+		ctx.fillStyle = "#000";
+		ctx.strokeRect(this.pos.c * this.w,this.pos.r * this.h,160 - border,120 - border);	
+		ctx.fillStyle = f;
+	}
+	else {
+		var f = ctx.fillStyle;
+		ctx.fillStyle = this.color;
+		//ctx.fillRect(this.pos.c * this.w,this.pos.r * this.h,160 - border,120 - border);
+		var sx = this.ori.c * this.w;
+		var sy = this.ori.r * this.h;
+		var sWidth = 160 - border;
+		var sHeight = 120 - border;
+		var dx = this.pos.c * this.w;
+		var dy = this.pos.r * this.h;
+		var dWidth = sWidth;
+		var dHeight = sHeight;
+		ctx.drawImage(s, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight)
+		ctx.fillStyle = f;
+	}
+}
+function randColor(){
+	var colors = ["#ff0000","#00ff00","#0000ff","#bada55","#ffff00"];
+	var min = 0; 
+	var max = colors.length;
+	var i = Math.round((Math.random() * 1000)) % max + min;
+	return colors[i];
+}
+function swapTiles(A,B){
+	var p = A.pos;
+		A.pos = B.pos;
+		B.pos = p;
+}
+
+function init() {
+
+	img = new Image();
+	img.src = "foto.jpg";
+	img.onload =  function (){
+		s = document.getElementById("video_buffer");
+		sctx = s.getContext("2d");
+		s.width = 640;
+		s.height = 360;
+		sctx.drawImage(img,0,0,s.width,s.height);
+		
+		c = document.getElementById("video_dest");
+		ctx = c.getContext("2d");		
+		c.width = s.width;
+		c.height = s.height;
+		c.addEventListener("mousedown",mouseClickHandler);
+		selectedTiles = 0;
+		tileArray = makeTiles(640,360);				
+		drawTiles(tileArray);		
+	}
+}
+function getTileAt(row,col){
+	for (var i = 0; i<tileArray.length;i++) {	
+		if ((tileArray[i].pos.r == row) && (tileArray[i].pos.c == col)) return tileArray[i]; 
+	}
+}
+function mouseClickHandler(e){
+	var c = Math.floor(e.pageX / 160);
+	var r = Math.floor(e.pageY / 120);
+	var t = getTileAt(r,c);	
+	selectedTiles++;
+	switch(selectedTiles) {		
+		case 1:
+			tileAux = t;
+			t.highlight = true;
+			t.draw();
+			break;
+		case 2:
+			swapTiles(tileAux,t);
+			tileAux.highlight = false;
+			t.highlight = false;			
+			t.draw();
+			tileAux.draw();			
+			selectedTiles = 0;
+			tileAux = null;
+			break;
+	}
+	
+
+}
+
+
+function drawTiles(tiles){
+	for ( var i = 0;i<tiles.length;i++){
+		tiles[i].draw();
+	}
+}
+function makeTiles(w,h){
+	var tileArray = [];
+	var maxRows = 3;
+	var maxCols = 4;
+	var tileWidth = Math.floor(w / maxCols);
+	var tileHeight = Math.floor(h / maxRows); 	
+	for (var ri = 0;ri<maxRows;ri++)
+		for(var ci = 0;ci <maxCols;ci++) {
+			var p = new Position(ri , ci );
+			tileArray.push(new Tile(tileWidth,tileHeight,p ,false,randColor())); 
+		}
+			
+	return tileArray;
+
+}
+</script>
+</html>

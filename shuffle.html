@@ -1,0 +1,38 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+</head>
+<body onload="init()">
+	
+</body>
+<script type="text/javascript">
+	function init(){
+		A = new Array();
+		for (var i = 0;i<10;i++) {
+			A.push( i);
+		}		
+		
+		
+		console.log(A.shuffle());
+	}
+	
+
+Array.prototype.shuffle = function () {	
+	for(var i = 0;i < this.length;i++){
+		var x = randInt(i+1,this.length - 2);		
+		swap(i,x);		
+	}
+	return this;
+}
+function swap(i,j){
+	var    x = A[i];
+		A[i] = A[j];
+		A[j] = x;
+}
+function randInt(min,max){		
+	return (Math.round(Math.random() * (max - min ) ) + min);;
+}
+</script>
+</html>
