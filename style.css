@@ -1,8 +1,8 @@
 #video_dest,#video_div,#video_buffer,#video_src{
-	width: 640px;
-	height: 360px;
-	cursor:pointer;
-	margin:0px;
+	cursor: crosshair;
+	height: 360px;	
+	margin: 0px;
+	 width: 640px;
 	/* border:1px solid #000; */
 }
   #video_buffer{
